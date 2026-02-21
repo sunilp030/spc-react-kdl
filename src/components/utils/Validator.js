@@ -172,19 +172,95 @@ export function dropdownValidatorForCustomDate(value, fieldName, fromDate, toDat
     }
 
 }
-export function dateValidator(value, fieldName, compaireField) {
-    if ((value == '' || value == null) && fieldName == 'from date') {
-        return `Please select ${fieldName}`;
-    } else if (value != '' && value != null && fieldName == 'to date') {
-        if (new Date(value) < new Date(compaireField)) {
-            return `To date must be greater than the from date.`;
-        } else {
-            return '';
-        }
+const MAX_TIMESTAMP = 9999999999999; // ~Year 2286 safe JS limit
+
+function isRealDateObject(value) {
+    return Object.prototype.toString.call(value) === "[object Date]";
+}
+
+function isStrictNumeric(value) {
+    if (typeof value === "number") {
+        return Number.isFinite(value);
+    }
+
+    if (typeof value === "string") {
+        // Only digits, no signs, decimals, spaces
+        return /^\d+$/.test(value);
+    }
+
+    if (isRealDateObject(value)) {
+        // Use intrinsic method safely (harder to spoof)
+        const time = Reflect.apply(Date.prototype.getTime, value, []);
+        return Number.isFinite(time);
+    }
+
+    return false;
+}
+
+function safeParseTimestamp(value) {
+    if (!isStrictNumeric(value)) {
+        throw new Error("Invalid timestamp format");
+    }
+
+    let ts;
+
+    // Explicit and hardened extraction (no implicit coercion)
+    if (typeof value === "number") {
+        ts = value;
+    } else if (typeof value === "string") {
+        ts = Number(value);
+    } else if (isRealDateObject(value)) {
+        ts = Reflect.apply(Date.prototype.getTime, value, []);
     } else {
+        throw new Error("Unsupported timestamp type");
+    }
+
+    // Must be a safe integer (prevents precision attacks)
+    if (!Number.isSafeInteger(ts)) {
+        throw new Error("Unsafe timestamp value");
+    }
+
+    // Range validation (prevents overflow / abuse)
+    if (ts < 0 || ts > MAX_TIMESTAMP) {
+        throw new Error("Timestamp out of allowed range");
+    }
+
+    return ts;
+}
+
+export function dateValidator(value, fieldName, compareField) {
+    // Required field validation
+    if (value === '' || value === null || value === undefined) {
+        if (fieldName === 'from date') {
+            return `Please select ${fieldName}`;
+        }
         return '';
     }
+    try {
+        const toTs = safeParseTimestamp(value);
+
+        // Validate comparison date securely
+        if (
+            fieldName === 'to date' &&
+            compareField !== undefined &&
+            compareField !== null &&
+            compareField !== ''
+        ) {
+            const fromTs = safeParseTimestamp(compareField);
+
+            // Direct numeric comparison (faster + safer than new Date())
+            if (toTs < fromTs) {
+                return "To date must be greater than the from date.";
+            }
+        }
+
+        return '';
+    } catch (error) {
+        return error.message || "Invalid date input";
+    }
 }
+
+
 
 export function inputValidator(value, fieldName) {
     if (value.toString() == '') {
@@ -283,7 +359,7 @@ export function inputFileFormatValidator(value, fieldName) {
 export function inputValidatorFormula(value, fieldName) {
     if (value == '') {
         return `Please enter ${fieldName}`;
-    }else {
+    } else {
         return '';
     }
 }
