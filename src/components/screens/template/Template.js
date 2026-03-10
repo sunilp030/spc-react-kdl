@@ -306,45 +306,45 @@ const Template = (props) => {
     }
   };
 
- const grouping = (data) => {
-  const a = groupBy(data, function (n) {
-    return n.OperationLineName;
-  });
-  //grouping by operational name.......................
-  var groups = Object.keys(a).map(function (key) {
-    //grouping by station name.......................
-    const s = groupBy(a[key], function (n) {
-      return n.StationName;
+  const grouping = (data) => {
+    const a = groupBy(data, function (n) {
+      return n.OperationLineName;
     });
-    var groups_station = Object.keys(s).map(function (key) {
-      var list = s[key];
-      var newList = [];
+    //grouping by operational name.......................
+    var groups = Object.keys(a).map(function (key) {
+      //grouping by station name.......................
+      const s = groupBy(a[key], function (n) {
+        return n.StationName;
+      });
+      var groups_station = Object.keys(s).map(function (key) {
+        var list = s[key];
+        var newList = [];
 
-      for (var i = 0; i < list.length; i++) {
-        var map = {
-          value: list[i]["TemplateID"],
-          label: list[i]["TemplateName"],
-          isToggle: false,
-        };
-        newList.push(map);
-      }
+        for (var i = 0; i < list.length; i++) {
+          var map = {
+            value: list[i]["TemplateID"],
+            label: list[i]["TemplateName"],
+            isToggle: false,
+          };
+          newList.push(map);
+        }
+
+        // ✅ FIX HERE
+        return { label: key, value: key, children: newList };
+      });
 
       // ✅ FIX HERE
-      return { label: key, value: key, children: newList };
+      return { label: key, value: key, children: groups_station };
     });
 
-    // ✅ FIX HERE
-    return { label: key, value: key, children: groups_station };
-  });
+    var mapData = {
+      name: "operation",
+      children: groups,
+    };
 
-  var mapData = {
-    name: "operation",
-    children: groups,
+    setData([]);
+    setData(groups);
   };
-
-  setData([]);
-  setData(groups);
-};
 
 
   // api call for template list...........................
@@ -450,14 +450,14 @@ const Template = (props) => {
               modelNo: modelList[i]["Model"],
               barcode_s:
                 modelList[i]["ModelType"] != null &&
-                modelList[i]["ModelType"] != "" &&
-                modelList[i]["ModelType"] == "S"
+                  modelList[i]["ModelType"] != "" &&
+                  modelList[i]["ModelType"] == "S"
                   ? true
                   : false,
               barcode_m:
                 modelList[i]["ModelType"] != null &&
-                modelList[i]["ModelType"] != "" &&
-                modelList[i]["ModelType"] == "M"
+                  modelList[i]["ModelType"] != "" &&
+                  modelList[i]["ModelType"] == "M"
                   ? true
                   : false,
             };
@@ -2067,7 +2067,7 @@ const Template = (props) => {
     reader.onload = function () {
       cb(reader.result);
     };
-    reader.onerror = function (error) {};
+    reader.onerror = function (error) { };
   };
 
   const onImageClick = (url) => {
@@ -2321,7 +2321,7 @@ const Template = (props) => {
               <button
                 type="button"
                 class="close"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
                 onClick={() => setIsOpenGoldenRuleModal(!isOpenGoldenRuleModal)}
               >
                 &times;
@@ -2365,7 +2365,7 @@ const Template = (props) => {
                     >
                       <i class="fa fa-check"></i>&nbsp; Apply
                     </a>
-                    {/* <a class="btn cancel_btn" data-dismiss="modal" onClick={toggleModal}><i class="fa fa-times"></i>&nbsp; Can</a> */}
+                    {/* <a class="btn cancel_btn" data-bs-dismiss="modal" onClick={toggleModal}><i class="fa fa-times"></i>&nbsp; Can</a> */}
                   </div>
                 </div>
               </div>
@@ -2382,7 +2382,7 @@ const Template = (props) => {
               <button
                 type="button"
                 class="close"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
                 onClick={toggleModal}
               >
                 &times;
@@ -2404,7 +2404,7 @@ const Template = (props) => {
                     </a>
                     <a
                       class="btn cancel_btn"
-                      data-dismiss="modal"
+                      data-bs-dismiss="modal"
                       onClick={toggleModal}
                     >
                       <i class="fa fa-times"></i>&nbsp; No
@@ -2427,7 +2427,7 @@ const Template = (props) => {
               <button
                 type="button"
                 class="close"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
                 onClick={toggleModalForDeleteChar}
               >
                 &times;
@@ -2447,7 +2447,7 @@ const Template = (props) => {
                     </a>
                     <a
                       class="btn cancel_btn"
-                      data-dismiss="modal"
+                      data-bs-dismiss="modal"
                       onClick={toggleModalForDeleteChar}
                     >
                       <i class="fa fa-times"></i>&nbsp; No
@@ -2472,7 +2472,7 @@ const Template = (props) => {
               <button
                 type="button"
                 className="close"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
                 onClick={() => onCharDialogClose(isEditChar)}
               >
                 ×
@@ -2718,8 +2718,8 @@ const Template = (props) => {
                   <i
                     class="fa fa-plus-circle char_add"
                     title="Add Gauge"
-                    data-toggle="modal"
-                    data-target="#Add_Gauge_Source"
+                    data-bs-toggle="modal"
+                    data-bs-target="#Add_Gauge_Source"
                     onClick={() => toggleModalAddGauge(templateId)}
                   ></i>
                   <select
@@ -2787,7 +2787,7 @@ const Template = (props) => {
                   <button
                     type="button"
                     className="btn save_btn"
-                    data-dismiss="modal"
+                    data-bs-dismiss="modal"
                     onClick={onCharSaveClick}
                   >
                     {isEditChar ? "Update" : "Save"}
@@ -2807,7 +2807,7 @@ const Template = (props) => {
               <button
                 type="button"
                 className="close"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
                 onClick={toggleModalAddGauge}
               >
                 ×
@@ -2961,7 +2961,7 @@ const Template = (props) => {
                     <button
                       type="button"
                       className="btn update_btn"
-                      data-dismiss="modal"
+                      data-bs-dismiss="modal"
                       onClick={() => onGaugeUpdateClick(updateGaugeSourceId)}
                     >
                       Update
@@ -2969,7 +2969,7 @@ const Template = (props) => {
                     <button
                       type="button"
                       className="btn delete_btn"
-                      data-dismiss="modal"
+                      data-bs-dismiss="modal"
                       onClick={() => onGaugeDeleteClick(updateGaugeSourceId)}
                     >
                       Delete
@@ -2980,7 +2980,7 @@ const Template = (props) => {
                     <button
                       type="button"
                       className="btn save_btn"
-                      data-dismiss="modal"
+                      data-bs-dismiss="modal"
                       onClick={() => onGaugeSaveClick()}
                     >
                       Save
@@ -3007,7 +3007,7 @@ const Template = (props) => {
                   <button
                     type="button"
                     className="close"
-                    data-dismiss="modal"
+                    data-bs-dismiss="modal"
                     style={{
                       fontSize: "30px",
                       position: "absolute",
@@ -3272,21 +3272,21 @@ const Template = (props) => {
                   style={{ marginTop: "25px", position: "relative" }}
                 >
                   <ul className="nav nav-tabs" role="tablist">
-                    <li className="nav-item active">
+                    <li className="nav-item">
                       <a
                         className="nav-link active"
-                        data-toggle="tab"
+                        data-bs-toggle="tab"
                         href="#Characteristics"
                         role="tab"
                       >
                         Characteristics
                       </a>
                     </li>
-                    <li className="nav-item active">
-                      {/* {...isFocusOpenOptionTab ? `className="nav-link active show"`:  `className="nav-link "` } */}
+
+                    <li className="nav-item">
                       <a
-                        className="nav-link "
-                        data-toggle="tab"
+                        className="nav-link"
+                        data-bs-toggle="tab"
                         href="#Options"
                         role="tab"
                       >
@@ -3313,8 +3313,8 @@ const Template = (props) => {
                         <div className="">
                           <a
                             className="btn btn-secondary Add_Gauge_btn"
-                            data-toggle="modal"
-                            data-target="#Add_Gauge_Source"
+                            data-bs-toggle="modal"
+                            data-bs-target="#Add_Gauge_Source"
                             onClick={() => toggleModalAddGauge(templateId)}
                           >
                             Gauge Source
@@ -3323,8 +3323,8 @@ const Template = (props) => {
                             <i
                               className="fa fa-plus-circle add_characteristic_table"
                               title="Add Characteristics"
-                              data-toggle="modal"
-                              data-target="#Add_in_table"
+                              data-bs-toggle="modal"
+                              data-bs-target="#Add_in_table"
                               onClick={() => toggleModalAddChar(templateId)}
                             />
                           </a>
@@ -3375,7 +3375,7 @@ const Template = (props) => {
                                     {templateCharacterList.length === 0 ? (
                                       <>
                                         <tr
-                                           
+
                                           style={{ height: "40px" }}
                                         >
                                           <td></td>
@@ -3396,7 +3396,7 @@ const Template = (props) => {
                                           <td> </td>
                                         </tr>
                                         <tr
-                                           
+
                                           style={{ height: "40px" }}
                                         >
                                           <td></td>
@@ -3417,7 +3417,7 @@ const Template = (props) => {
                                           <td> </td>
                                         </tr>
                                         <tr
-                                           
+
                                           style={{ height: "40px" }}
                                         >
                                           <td></td>
@@ -3462,7 +3462,7 @@ const Template = (props) => {
                                             />
                                           ) : null}
                                           {i !=
-                                          templateCharacterList.length - 1 ? (
+                                            templateCharacterList.length - 1 ? (
                                             <i
                                               className="fa fa-arrow-down icon_font"
                                               title="Down"
@@ -3474,8 +3474,8 @@ const Template = (props) => {
 
                                           <i
                                             className="fa fa-edit icon_font"
-                                            data-toggle="modal"
-                                            data-target="#Add_in_table"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#Add_in_table"
                                             title="Edit"
                                             onClick={() =>
                                               toggleModalEditChar(data, i)
@@ -3483,8 +3483,8 @@ const Template = (props) => {
                                           />
                                           <i
                                             className="fa fa-trash icon_font"
-                                            data-toggle="modal"
-                                            data-target="#delete_pop_modal"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#delete_pop_modal"
                                             title="Delete"
                                             onClick={() =>
                                               toggleModalForDeleteChar(i + 1)
@@ -3510,30 +3510,30 @@ const Template = (props) => {
                                         </td>
                                         <td>
                                           {data.formula != null &&
-                                          data.formula != 0
+                                            data.formula != 0
                                             ? data.formula
                                             : "-"}
                                         </td>
                                         <td>
                                           {data.MasterSize != null &&
-                                          data.MasterSize != 0
+                                            data.MasterSize != 0
                                             ? data.MasterSize
                                             : "-"}
                                         </td>
                                         <td>
                                           {data.GaugeSource != null &&
-                                          data.GaugeSource != 0
+                                            data.GaugeSource != 0
                                             ? data.GaugeSource
                                             : "-"}
                                         </td>
                                         <td>{data.Frequency}</td>
                                         <td className="text-center">
                                           {data.Attachement != null &&
-                                          data.Attachement != "" ? (
+                                            data.Attachement != "" ? (
                                             <a
                                               href="#"
-                                              data-toggle="modal"
-                                              data-target="#attachment_link"
+                                              data-bs-toggle="modal"
+                                              data-bs-target="#attachment_link"
                                               title="View Attachment"
                                               style={{
                                                 boxShadow: "none",
@@ -3660,7 +3660,7 @@ const Template = (props) => {
                           <label className="ckbox">
                             <input
                               type="checkbox"
-                               
+
                               defaultChecked={isTemplate}
                               onChange={() => setIsTemplate(!isTemplate)}
                             />
@@ -3671,7 +3671,7 @@ const Template = (props) => {
                           <label className="ckbox">
                             <input
                               type="checkbox"
-                               
+
                               defaultChecked={isMachine}
                               onChange={() => setIsMachine(!isMachine)}
                             />
@@ -3682,7 +3682,7 @@ const Template = (props) => {
                           <label className="ckbox">
                             <input
                               type="checkbox"
-                               
+
                               defaultChecked={isPallet}
                               onChange={() => onFrequencyPalletSelected()}
                             />
@@ -3743,7 +3743,7 @@ const Template = (props) => {
                       <div className="card-header">
                         <a
                           href="#demo"
-                          data-toggle="collapse"
+                          data-bs-toggle="collapse"
                           aria-expanded="false"
                         >
                           System Details <i className="fas fa-chevron-down" />
@@ -3898,9 +3898,9 @@ const Template = (props) => {
                       </button>
                     ) : null}
                     {templateId != "" &&
-                    isWriteAccess &&
-                    isActive == 1 &&
-                    isShowReplicate ? (
+                      isWriteAccess &&
+                      isActive == 1 &&
+                      isShowReplicate ? (
                       <button
                         type="button"
                         className="btn update_btn"
@@ -3913,8 +3913,8 @@ const Template = (props) => {
                       <button
                         type="button"
                         className="btn delete_btn"
-                        data-toggle="modal"
-                        data-target="#delete_pop_modal"
+                        data-bs-toggle="modal"
+                        data-bs-target="#delete_pop_modal"
                         onClick={() => toggleModal(templateId)}
                       >
                         <i class="fa fa-trash-o"></i>&nbsp; Delete

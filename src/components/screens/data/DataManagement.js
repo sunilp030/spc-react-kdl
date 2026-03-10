@@ -874,7 +874,7 @@ const grouping = (data) => {
           <div class="modal-content" style={{ borderRadius: '0px' }}>
             <div class="modal-header">
               <h4 class="modal-title modal_title_text">Confirm Delete</h4>
-              <button type="button" class="close" data-dismiss="modal" onClick={toggleModal}>&times;</button>
+              <button type="button" class="close" data-bs-dismiss="modal" onClick={toggleModal}>&times;</button>
 
             </div>
             <div class="modal-body">
@@ -887,7 +887,7 @@ const grouping = (data) => {
                 <div class="col-md-12">
                   <div class="form-group text-right" style={{ marginTop: '25px' }}>
                     <a href="javascript:void(0);" class="btn save_btn" onClick={onDeleteClick}><i class='fa fa-check'></i>&nbsp; Yes</a>
-                    <a href="javascript:void(0);" class="btn cancel_btn" data-dismiss="modal" style={{ marginLeft: '5px' }} onClick={toggleModal}><i class="fa fa-times"></i>&nbsp; No</a>
+                    <a href="javascript:void(0);" class="btn cancel_btn" data-bs-dismiss="modal" style={{ marginLeft: '5px' }} onClick={toggleModal}><i class="fa fa-times"></i>&nbsp; No</a>
                   </div>
                 </div>
               </div>

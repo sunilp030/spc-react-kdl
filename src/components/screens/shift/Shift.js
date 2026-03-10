@@ -827,7 +827,7 @@ const Shift = (props) => {
               <button
                 type="button"
                 class="close"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
                 onClick={toggleModal}
               >
                 &times;
@@ -854,7 +854,7 @@ const Shift = (props) => {
                     <a
                       href="javascript:void(0);"
                       class="btn cancel_btn"
-                      data-dismiss="modal"
+                      data-bs-dismiss="modal"
                       onClick={toggleModal}
                     >
                       <i class="fa fa-times"></i>&nbsp; No
@@ -877,7 +877,7 @@ const Shift = (props) => {
               <button
                 type="button"
                 className="close"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
                 onClick={toggleFilterModal}
               >
                 ×
@@ -915,7 +915,7 @@ const Shift = (props) => {
                     <button
                       type="button"
                       className="btn search_btn"
-                      data-dismiss="modal"
+                      data-bs-dismiss="modal"
                       onClick={() => onFilterClick()}
                     >
                       <i class="fa fa-search"></i>&nbsp; Search
@@ -923,7 +923,7 @@ const Shift = (props) => {
                     <button
                       type="button"
                       className="btn cancel_btn"
-                      data-dismiss="modal"
+                      data-bs-dismiss="modal"
                       onClick={() => onFilterCancel()}
                     >
                       <i class="fa fa-times"></i>&nbsp; Cancel
@@ -997,8 +997,8 @@ const Shift = (props) => {
                   )}
 
                   <div
-                    data-toggle="modal"
-                    data-target="#delete_pop_modal"
+                    data-bs-toggle="modal"
+                    data-bs-target="#delete_pop_modal"
                     onClick={() => toggleFilterModal(shiftId)}
                   >
                     <input
@@ -1648,7 +1648,7 @@ const Shift = (props) => {
                       <div className="card-header">
                         <a
                           href="#demo"
-                          data-toggle="collapse"
+                          data-bs-toggle="collapse"
                           aria-expanded="false"
                         >
                           System Details <i className="fas fa-chevron-down" />
@@ -1802,7 +1802,7 @@ const Shift = (props) => {
                         Update
                       </button>
                     ) : null}
-                    {/*{shiftId != '' && isDeleteAccess ? (<button type="button" className="btn delete_btn" data-toggle="modal" data-target="#delete_pop_modal" onClick={() => toggleModal(shiftId)}>Delete</button>) : (null)} */}
+                    {/*{shiftId != '' && isDeleteAccess ? (<button type="button" className="btn delete_btn" data-bs-toggle="modal" data-bs-target="#delete_pop_modal" onClick={() => toggleModal(shiftId)}>Delete</button>) : (null)} */}
                     {/* <button type="button" className="btn" onClick={onBackClick}>Back</button> */}
                   </div>
                 </div>

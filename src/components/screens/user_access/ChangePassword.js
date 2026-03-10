@@ -198,7 +198,7 @@ const ChangePassword = () => {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Change Password</h4>
-                            <button type="button" class="close" data-dismiss="modal" onClick={() => onBackClick()}>&times;</button>
+                            <button type="button" class="close" data-bs-dismiss="modal" onClick={() => onBackClick()}>&times;</button>
                         </div>
                         <div class="modal-body">
                             <div class="row">
@@ -217,7 +217,7 @@ const ChangePassword = () => {
                                     </div>
                                     <div class="form-group text-right mt-5">
                                         <button type="button" class="btn update_btn" onClick={() => changePassword()}><i class="fa fa-paper-plane"></i>&nbsp; Change Password</button>
-                                        <button type="button" class="btn cancel_btn" data-dismiss="modal" onClick={() => onBackClick()}><i class="fa fa-times"></i>&nbsp; Cancel</button>
+                                        <button type="button" class="btn cancel_btn" data-bs-dismiss="modal" onClick={() => onBackClick()}><i class="fa fa-times"></i>&nbsp; Cancel</button>
                                     </div>
                                 </div>
                             </div>

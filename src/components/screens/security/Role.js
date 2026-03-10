@@ -679,7 +679,7 @@ const Role = (props) => {
           <div class="modal-content">
             <div class="modal-header header_bg_color_red">
               <h4 class="modal-title modal_title_text">Confirm Delete</h4>
-              <button type="button" class="close" data-dismiss="modal" onClick={toggleModal}>&times;</button>
+              <button type="button" class="close" data-bs-dismiss="modal" onClick={toggleModal}>&times;</button>
             </div>
             <div class="modal-body">
               <div class="row">
@@ -691,7 +691,7 @@ const Role = (props) => {
                 <div class="col-md-12">
                   <div class="form-group text-right mt-5">
                     <a href="javascript:void(0);" class="btn save_btn" onClick={onDeleteClick}><i class="fa fa-check"></i>&nbsp; Yes</a>
-                    <a href="javascript:void(0);" class="btn cancel_btn" data-dismiss="modal" style={{ marginLeft: '5px' }} onClick={toggleModal}><i class="fa fa-times"></i>&nbsp; No</a>
+                    <a href="javascript:void(0);" class="btn cancel_btn" data-bs-dismiss="modal" style={{ marginLeft: '5px' }} onClick={toggleModal}><i class="fa fa-times"></i>&nbsp; No</a>
                   </div>
                 </div>
               </div>
@@ -711,7 +711,7 @@ const Role = (props) => {
             <div class="modal-header header_bg_color_blue">
 
               <h4 class="modal-title modal_title_text">Role Filter</h4>
-              <button type="button" class="close" data-dismiss="modal" onClick={toggleFilterModal}>&times;</button>
+              <button type="button" class="close" data-bs-dismiss="modal" onClick={toggleFilterModal}>&times;</button>
             </div>
             <div class="modal-body border_bottom_blue">
               <div class="row">
@@ -734,8 +734,8 @@ const Role = (props) => {
                     </select>
                   </div>
                   <div class="form-group text-right mt-5">
-                    <button type="button" class="btn search_btn" data-dismiss="modal" onClick={() => onFilterClick()}><i class="fa fa-search"></i>&nbsp; Search</button>
-                    <button type="button" class="btn cancel_btn" data-dismiss="modal" onClick={() => onFilterCancel()}><i class="fa fa-times"></i>&nbsp; Cancel</button>
+                    <button type="button" class="btn search_btn" data-bs-dismiss="modal" onClick={() => onFilterClick()}><i class="fa fa-search"></i>&nbsp; Search</button>
+                    <button type="button" class="btn cancel_btn" data-bs-dismiss="modal" onClick={() => onFilterCancel()}><i class="fa fa-times"></i>&nbsp; Cancel</button>
                   </div>
                 </div>
               </div>
@@ -771,7 +771,7 @@ const Role = (props) => {
                       <span >Cancel</span>
                     </label>
                   </div> : <div className='p-0 m-0'>  <input name="type" type="radio" defaultValue="type-posts" id="type-posts" /></div>}
-                  <div data-toggle="modal" data-target="#delete_pop_modal" onClick={() => toggleFilterModal(roleId)}>
+                  <div data-bs-toggle="modal" data-bs-target="#delete_pop_modal" onClick={() => toggleFilterModal(roleId)}>
                     <input name="type" type="radio" defaultValue="role_filter" id="role_filter" />
                     <label htmlFor="type-role">
                       <i className="fa fa-filter edit-pen-title" />
@@ -919,7 +919,7 @@ const Role = (props) => {
                   <div id="accordion">
                     <div className="card">
                       <div className="card-header">
-                        <a href="#demo" data-toggle="collapse" aria-expanded="false">System Details <i className="fas fa-chevron-down" /></a>
+                        <a href="#demo" data-bs-toggle="collapse" aria-expanded="false">System Details <i className="fas fa-chevron-down" /></a>
                       </div>
                       <div id="demo" className="collapse "> {/* show */}
                         <div className="card-body">
@@ -988,7 +988,7 @@ const Role = (props) => {
                   <div className="col-md-12 text-right">
                     {roleId == '' && isWriteAccess ? (<button type="button" className="btn save_btn" onClick={onSaveClick}><i class='fa fa-save'></i>&nbsp; Save</button>) : (null)}
                     {roleId != '' && isWriteAccess && isActive == 1 ? (<button type="button" className="btn update_btn" onClick={onUpdateClick}><i class='fa fa-save'></i>&nbsp; Update</button>) : (null)}
-                    {roleId != '' && isDeleteAccess && isActive == 1 ? (<button type="button" className="btn delete_btn" data-toggle="modal" data-target="#delete_pop_modal" onClick={() => toggleModal(roleId)}><i class="fa fa-trash-o"></i>&nbsp; Delete</button>) : (null)}
+                    {roleId != '' && isDeleteAccess && isActive == 1 ? (<button type="button" className="btn delete_btn" data-bs-toggle="modal" data-bs-target="#delete_pop_modal" onClick={() => toggleModal(roleId)}><i class="fa fa-trash-o"></i>&nbsp; Delete</button>) : (null)}
                     {/* <button type="button" className="btn" onClick={onBackClick}>Back</button> */}
                   </div>
                 </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import Notification from './Notification';
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import $ from "jquery";
 import { loginPasswordValidator, confirmPasswordValidator } from '../../utils/Validator';
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,6 +10,10 @@ import { axiosPost } from '../framework/Axios';
 import Loader from "../../utils/Loader";
 import { changePasswordUrl, timeout, userManualDownloadUrl } from '../../utils/constants';
 import Modal from "react-modal";
+import "../../../azia.js";
+// import "../../../jquery.sticky.js";
+// import "../../../metisMenu-active.js";
+// import "../../../main.js";
 
 Modal.setAppElement("#root");
 
@@ -61,17 +65,18 @@ const Header = ({ activeId }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [userName, setUserName] = useState('');
-
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const loadScripts = () => {
     // This array contains all the files/CDNs 
     const dynamicScripts = [
-      'js/jquery.sticky.js',
-      'js/metisMenu.min.js',
-      'js/metisMenu-active.js',
-      'js/main.js',
-      'js/azia.js'
+      // 'js/jquery.sticky.js',
+      // 'js/metisMenu.min.js',
+      // 'js/metisMenu-active.js',
+      // 'js/main.js',
+      // 'js/azia.js'
     ];
+    // import("../../../azia.js");
 
     for (let i = 0; i < dynamicScripts.length; i++) {
       const node = document.createElement('script');
@@ -81,9 +86,10 @@ const Header = ({ activeId }) => {
       document.getElementsByTagName('head')[0].appendChild(node);
     }
   }
+  const location = useLocation();
 
   useEffect(() => {
-    loadScripts();
+    // loadScripts();
     const userData = JSON.parse(localStorage.getItem('userData'));
     const userName = JSON.parse(localStorage.getItem('userName'));
     if (userData != null) {
@@ -163,7 +169,31 @@ const Header = ({ activeId }) => {
     if (activeId == "isChartActiveColor") {
       setIsActiveChart(!isActiveChart);
     }
-  }, []);
+
+    // your existing code ...
+
+    window.dispatchEvent(new Event("load"));
+
+    // 🔹 Reinitialize azia dropdown
+    setTimeout(() => {
+      $('.with-sub').off('click').on('click', function (e) {
+        e.preventDefault();
+
+        const parent = $(this).parent();
+
+        if (parent.hasClass('show')) {
+          parent.removeClass('show');
+          parent.find('.az-menu-sub').slideUp();
+        } else {
+          $('.nav-item').removeClass('show');
+          $('.az-menu-sub').slideUp();
+
+          parent.addClass('show');
+          parent.find('.az-menu-sub').slideDown();
+        }
+      });
+    }, 100);
+  }, [location]);
 
   const onHeaderClick = (value) => {
     if (value == 'Contact') {
@@ -305,7 +335,7 @@ const Header = ({ activeId }) => {
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title">Change Password</h4>
-              <button type="button" class="close" data-dismiss="modal" onClick={toggleModal}>&times;</button>
+              <button type="button" class="close" data-bs-dismiss="modal" onClick={toggleModal}>&times;</button>
             </div>
             <div class="modal-body">
               <div class="row">
@@ -324,7 +354,7 @@ const Header = ({ activeId }) => {
                   </div>
                   <div class="form-group text-right mt-5">
                     <button type="button" class="btn update_btn"  onClick={() => changePassword()}><i class="fa fa-paper-plane"></i>&nbsp; Change Password</button>
-                    <button type="button" class="btn cancel_btn" data-dismiss="modal"><i class="fa fa-times" onClick={toggleModal}></i>&nbsp; Cancel</button>
+                    <button type="button" class="btn cancel_btn" data-bs-dismiss="modal"><i class="fa fa-times" onClick={toggleModal}></i>&nbsp; Cancel</button>
                   </div>
                 </div>            
             </div>           
@@ -347,32 +377,32 @@ const Header = ({ activeId }) => {
             </div>{/* az-header-menu-header */}
             <ul className="nav">
               <li className="nav-item  ">
-                <a href className={isRoleAccess ? "nav-link with-sub" : "nav-link_disable"}  style={{ color: isRoleAccess ? (isActiveSecurity ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveSecurity(!isActiveSecurity)}><span class="material-icons-outlined">security</span><span>Security</span></a>
+                <a href className={isRoleAccess ? "nav-link with-sub" : "nav-link_disable"} style={{ color: isRoleAccess ? (isActiveSecurity ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveSecurity(!isActiveSecurity)}><span class="material-icons-outlined">security</span><span>Security</span></a>
                 <nav className="az-menu-sub">
                   <a href={isRoleAccess ? "/#/role" : null} className="nav-link" style={{ color: isRoleAccess ? (isActiveRole ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveRole(!isActiveRole)}><i class="far fa-user-circle"></i>&nbsp;&nbsp;&nbsp;Role</a>
                   <a href={isUserAccess ? "/#/user" : null} className="nav-link" style={{ color: isUserAccess ? (isActiveUser ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveUser(!isActiveUser)}><i class="fa fa-user-o"></i>&nbsp;&nbsp;&nbsp;User</a>
                 </nav>
               </li>
               <li className="nav-item">
-                <a href={isOperationAccess ? "/#/operationLine" : null} className={isOperationAccess ? "nav-link": "nav-link_disable"} style={{ color: isOperationAccess ? (isActiveOperation ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveOperation(!isActiveOperation)} ><span class="material-icons-outlined">settings</span><span>Operation Line</span></a>
+                <a href={isOperationAccess ? "/#/operationLine" : null} className={isOperationAccess ? "nav-link" : "nav-link_disable"} style={{ color: isOperationAccess ? (isActiveOperation ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveOperation(!isActiveOperation)} ><span class="material-icons-outlined">settings</span><span>Operation Line</span></a>
               </li>
               <li className="nav-item">
-                <a href={isStationAccess ? "/#/station" : null} className={isStationAccess ? "nav-link": "nav-link_disable"} style={{ color: isStationAccess ? (isActiveStation ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveStation(!isActiveStation)} ><span class="material-icons-outlined">account_balance</span><span>SPC Station</span></a>
+                <a href={isStationAccess ? "/#/station" : null} className={isStationAccess ? "nav-link" : "nav-link_disable"} style={{ color: isStationAccess ? (isActiveStation ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveStation(!isActiveStation)} ><span class="material-icons-outlined">account_balance</span><span>SPC Station</span></a>
               </li>
               <li className="nav-item">
-                <a href={isMachineAccess ? "/#/machine" : null} className= {isMachineAccess ? "nav-link": "nav-link_disable"} style={{ color: isMachineAccess ? (isActiveMachine ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveMachine(!isActiveMachine)} ><span class="material-icons-outlined">desktop_windows</span><span>Machine</span></a>
+                <a href={isMachineAccess ? "/#/machine" : null} className={isMachineAccess ? "nav-link" : "nav-link_disable"} style={{ color: isMachineAccess ? (isActiveMachine ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveMachine(!isActiveMachine)} ><span class="material-icons-outlined">desktop_windows</span><span>Machine</span></a>
               </li>
               <li className="nav-item">
-                <a href={isTemplateAccess ? "/#/template" : null} className={isTemplateAccess ? "nav-link": "nav-link_disable"} style={{ color: isTemplateAccess ? (isActiveTemplate ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveTemplate(!isActiveTemplate)} ><span class="material-icons-outlined">description</span><span>Template</span></a>
+                <a href={isTemplateAccess ? "/#/template" : null} className={isTemplateAccess ? "nav-link" : "nav-link_disable"} style={{ color: isTemplateAccess ? (isActiveTemplate ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveTemplate(!isActiveTemplate)} ><span class="material-icons-outlined">description</span><span>Template</span></a>
               </li>
               <li className="nav-item">
-                <a href={isEventAccess ? "/#/event" : null} className={isEventAccess ? "nav-link": "nav-link_disable"} style={{ color: isEventAccess ? (isActiveEvent ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveEvent(!isActiveEvent)}><span class="material-icons-outlined">date_range</span><span>Event</span></a>
+                <a href={isEventAccess ? "/#/event" : null} className={isEventAccess ? "nav-link" : "nav-link_disable"} style={{ color: isEventAccess ? (isActiveEvent ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveEvent(!isActiveEvent)}><span class="material-icons-outlined">date_range</span><span>Event</span></a>
               </li>
               <li className="nav-item">
-                <a href={isShiftAccess ? "/#/shift" : null} className={isShiftAccess ? "nav-link": "nav-link_disable"} style={{ color: isShiftAccess ? (isActiveShift ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveShift(!isActiveShift)}><span class="material-icons-outlined">watch_later</span><span>Shift</span></a>
+                <a href={isShiftAccess ? "/#/shift" : null} className={isShiftAccess ? "nav-link" : "nav-link_disable"} style={{ color: isShiftAccess ? (isActiveShift ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveShift(!isActiveShift)}><span class="material-icons-outlined">watch_later</span><span>Shift</span></a>
               </li>
               <li className="nav-item">
-                <a href={isChartAccess ? "/#/chart" : null} className={isChartAccess ? "nav-link": "nav-link_disable"} style={{ color: isChartAccess ? (isActiveChart ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveChart(!isActiveChart)}><span class="material-icons-outlined">insert_chart_outlined</span><span>Chart</span></a>
+                <a href={isChartAccess ? "/#/chart" : null} className={isChartAccess ? "nav-link" : "nav-link_disable"} style={{ color: isChartAccess ? (isActiveChart ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveChart(!isActiveChart)}><span class="material-icons-outlined">insert_chart_outlined</span><span>Chart</span></a>
               </li>
               <li className="nav-item">
                 <a href className={isManagementAccess ? "nav-link with-sub" : "nav-link_disable"} style={{ color: isManagementAccess ? (isActiveData ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveData(!isActiveData)}><span class="material-icons-outlined">data_usage</span><span>Data</span></a>
@@ -382,41 +412,68 @@ const Header = ({ activeId }) => {
                 </nav>
               </li>
               <li className="nav-item">
-                <a href={isMesAccess ? "/#/mes" : null} className={isMesAccess ? "nav-link": "nav-link_disable"} style={{ color: isMesAccess ? (isActiveMes ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveMes(!isActiveMes)}><span class="material-icons-outlined">pages</span><span>MES</span></a>
+                <a href={isMesAccess ? "/#/mes" : null} className={isMesAccess ? "nav-link" : "nav-link_disable"} style={{ color: isMesAccess ? (isActiveMes ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveMes(!isActiveMes)}><span class="material-icons-outlined">pages</span><span>MES</span></a>
               </li>
 
               <li className="nav-item">
-                <a href={isBackupAccess ? "/#/backup" : null} className={isBackupAccess ? "nav-link": "nav-link_disable"} style={{ color: isBackupAccess ? (isActiveBackup ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveBackup(!isActiveBackup)}><span class="material-icons-outlined">backup</span><span>Backup</span></a>
+                <a href={isBackupAccess ? "/#/backup" : null} className={isBackupAccess ? "nav-link" : "nav-link_disable"} style={{ color: isBackupAccess ? (isActiveBackup ? '#e12503' : '#1c273c') : '#b5b5b5' }} onClick={() => setIsActiveBackup(!isActiveBackup)}><span class="material-icons-outlined">backup</span><span>Backup</span></a>
               </li>
             </ul>
           </div>
           <div className="az-header-right">
             <div className=" az-header-notification mx-3">
-              <a href={userManualDownloadUrl} onClick={openPdf} target="_black" class="button"><i className="fas fa-question-circle" /></a>
+              <a href={userManualDownloadUrl} onClick={openPdf} target="_blank" class="button"><i className="fas fa-question-circle" /></a>
             </div>
             <div className="dropdown az-profile-menu">
-            {/* <a href className="az-img-user"><i className="fas fa-user-circle" /></a> */}
-              <a href className="user-profile-img az-img-user "><h6>{userName.slice(0,1).toUpperCase()}</h6></a>
-              <div className="dropdown-menu">
-                <div className="az-dropdown-header d-sm-none">
-                  <a className="az-header-arrow"><i className="icon ion-md-arrow-back" /></a>
-                </div>
-                {/* onClick={() => toggleModal()} */}
-                <a href={"/#/changepassword"} className="dropdown-item"  ><i className="typcn typcn-lock-closed" /> Change Password</a>
-                {/* data-toggle="modal" data-target="#changepassword" */}
-                <a className="dropdown-item" onClick={() => onLogoutClick()}><i className="typcn typcn-power" /> Logout</a>
+              {/* <a href className="az-img-user"><i className="fas fa-user-circle" /></a> */}
+              {/* <a href className="user-profile-img az-img-user "><h6>{userName.slice(0, 1).toUpperCase()}</h6></a> */}
+              <a
+                href="#"
+                className="user-profile-img az-img-user"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsProfileOpen(!isProfileOpen);
+                }}
+              >
+                <h6>{userName.slice(0, 1).toUpperCase()}</h6>
+              </a>
+          
+
+            <div className={`dropdown-menu ${isProfileOpen ? "show" : ""}`}>
+              <div className="az-dropdown-header d-sm-none">
+                <a
+                  className="az-header-arrow"
+                  onClick={() => setIsProfileOpen(false)}
+                >
+                  <i className="icon ion-md-arrow-back" />
+                </a>
               </div>
+
+              <a href="/#/changepassword" className="dropdown-item">
+                <i className="typcn typcn-lock-closed" /> Change Password
+              </a>
+
+              <a
+                className="dropdown-item"
+                onClick={() => {
+                  setIsProfileOpen(false);
+                  onLogoutClick();
+                }}
+              >
+                <i className="typcn typcn-power" /> Logout
+              </a>
             </div>
           </div>
         </div>
       </div>
+    </div >
 
       <div id="changepassword" class="modal fade" role="dialog">
         <div class="modal-dialog custom_modal_dialog">
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title">Change Password</h4>
-              <button type="button" class="close" data-dismiss="modal" onClick={() => clearField()}>&times;</button>
+              <button type="button" class="close" data-bs-dismiss="modal" onClick={() => clearField()}>&times;</button>
             </div>
             <div class="modal-body">
               <div class="row">
@@ -435,7 +492,7 @@ const Header = ({ activeId }) => {
                   </div>
                   <div class="form-group text-right mt-5">
                     <button type="button" class="btn update_btn" onClick={() => changePassword()}><i class="fa fa-paper-plane"></i>&nbsp; Change Password</button>
-                    <button type="button" class="btn cancel_btn" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp; Cancel</button>
+                    <button type="button" class="btn cancel_btn" data-bs-dismiss="modal"><i class="fa fa-times"></i>&nbsp; Cancel</button>
                   </div>
                 </div>
               </div>

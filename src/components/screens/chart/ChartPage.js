@@ -1304,7 +1304,7 @@ const ChartPage = (props) => {
         <div class="modal-dialog custom_modal_dialog">
           <div class="modal-content" style={{ borderRadius: '0px' }}>
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" onClick={toggleModal}>&times;</button>
+              <button type="button" class="close" data-bs-dismiss="modal" onClick={toggleModal}>&times;</button>
               <h4 class="modal-title modal_title_text">Confirm Delete</h4>
             </div>
             <div class="modal-body">
@@ -1317,7 +1317,7 @@ const ChartPage = (props) => {
                 <div class="col-md-12">
                   <div class="form-group text-right" style={{ marginTop: '25px' }}>
                     <a href="javascript:void(0);" class="btn save_btn" onClick={onDeleteClick}><i class='fa fa-check'></i>&nbsp; Yes</a>
-                    <a href="javascript:void(0);" class="btn cancel_btn" data-dismiss="modal" style={{ marginLeft: '5px' }} onClick={toggleModal}><i class="fa fa-times"></i>&nbsp; No</a>
+                    <a href="javascript:void(0);" class="btn cancel_btn" data-bs-dismiss="modal" style={{ marginLeft: '5px' }} onClick={toggleModal}><i class="fa fa-times"></i>&nbsp; No</a>
                   </div>
                 </div>
               </div>
@@ -1335,7 +1335,7 @@ const ChartPage = (props) => {
               <button
                 type="button"
                 className="close"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
                 onClick={toggleFilterModal}
               >
                 ×
@@ -1377,14 +1377,14 @@ const ChartPage = (props) => {
               <button
                 type="button"
                 className="btn btn-default search_btn"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
               >
                 Search
               </button>
               <button
                 type="button"
                 className="btn btn-default"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
                 onClick={toggleFilterModal}
               >
                 Cancel

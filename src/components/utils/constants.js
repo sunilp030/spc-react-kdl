@@ -1,7 +1,7 @@
 
 
-export const BASE_URL = "http://localhost:9000";
-// export const BASE_URL = "http://103.25.126.207:8116/api";
+// export const BASE_URL = "http://localhost:9000";
+export const BASE_URL = "https://spc.benchmarksolution.com/api";
 // export const BASE_URL = "http://192.168.3.156:9000";
 
 // export const BASE_URL = "http://192.168.3.59:9000";

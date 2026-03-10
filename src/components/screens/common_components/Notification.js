@@ -4,7 +4,7 @@ import React from 'react';
 const Notification = ({ head, userId }) => {
     return (
         <>
-            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+            <a href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                 <i class="fa fa-bell" style={{ position: 'relative', top: '4px' }}></i>
                 <span class="badge badge-danger notification_badge">55</span>
             </a>

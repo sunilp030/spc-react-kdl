@@ -766,7 +766,7 @@ const Modify = (props) => {
                     {list.length > 0 ? (
                         list.map((data, i) => (
                         <tr
-                            key={data.SrNo ?? i}data-toggle="modal"onDoubleClick={() => toggleModalEditChar(data, i)}>
+                            key={data.SrNo ?? i}data-bs-toggle="modal"onDoubleClick={() => toggleModalEditChar(data, i)}>
                             <td>{data.SrNo}</td>
                             <td>{moment(data.DateTime).format('DD-MM-YYYY HH:mm')}</td>
                             <td>{data.SPCStation}</td>
@@ -839,7 +839,7 @@ const Modify = (props) => {
                     <div className="modal-content">
                         <div className="modal-header header_bg_color_blue">
                             <h4 className="modal-title modal_title_text">Update Characteristics</h4>
-                            <button type="button" className="close" data-dismiss="modal" onClick={() => closeUpdateModal()}>×</button>
+                            <button type="button" className="close" data-bs-dismiss="modal" onClick={() => closeUpdateModal()}>×</button>
                         </div>
                         <div className="modal-body border_bottom_blue" style={{ height: 'auto', overflow: 'auto' }}>
                             <div className="row" style={{ margin: '0px' }}>
@@ -946,7 +946,7 @@ const Modify = (props) => {
                                 </div>
 
                                 <div className="col-md-12 text-right mt-3">
-                                    <button type="button" className="btn update_btn" data-dismiss="modal" onClick={onCharUpdateClick}>Update</button>
+                                    <button type="button" className="btn update_btn" data-bs-dismiss="modal" onClick={onCharUpdateClick}>Update</button>
                                 </div>
                             </div>
                         </div>
@@ -1132,7 +1132,7 @@ const Modify = (props) => {
                                                                     {modifyCharTableList.length > 0 ?
                                                                         (
                                                                             modifyCharTableList.map((data, i) => (
-                                                                                <tr key={data.SrNo} data-toggle="modal" onDoubleClick={() => toggleModalEditChar(data, i)}>
+                                                                                <tr key={data.SrNo} data-bs-toggle="modal" onDoubleClick={() => toggleModalEditChar(data, i)}>
                                                                                     <td>{data.SrNo}</td>
                                                                                     <td>{moment(data.DateTime).format('DD-MM-YYYY HH:MM')}</td>
                                                                                     <td>{data.SPCStation}</td>

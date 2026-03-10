@@ -685,7 +685,7 @@ const XbarChart = ({ chartConfig, chartData, xyPairList, charId, dataTable }) =>
                         <div class="modal-header">
 
                             <h4 class="modal-title modal_title_text">Chart Details</h4>
-                            <button type="button" class="close" data-dismiss="modal" onClick={toggleModal}>&times;</button>
+                            <button type="button" class="close" data-bs-dismiss="modal" onClick={toggleModal}>&times;</button>
                         </div>
                         <div class="modal-body">
                             <div className='col-md-12 chart_table' id="DataTableStyle1">

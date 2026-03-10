@@ -46,7 +46,7 @@
 		  $(this).tab('show')
 		});
 	
-	$('[data-toggle="tooltip"]').tooltip(); 
+	$('[data-bs-toggle="tooltip"]').tooltip(); 
 	
 	$('#sidebarCollapse').on('click', function () {
 		 $('#sidebar').toggleClass('active');

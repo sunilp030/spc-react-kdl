@@ -711,7 +711,7 @@ const User = (props) => {
           <div className="modal-content" style={{ borderRadius: '0px' }}>
             <div class="modal-header">
               <h4 class="modal-title modal_title_text">Confirm Delete</h4>
-              <button type="button" class="close" data-dismiss="modal" onClick={toggleModal}>&times;</button>
+              <button type="button" class="close" data-bs-dismiss="modal" onClick={toggleModal}>&times;</button>
 
             </div>
             <div class="modal-body">
@@ -724,7 +724,7 @@ const User = (props) => {
                 <div class="col-md-12">
                   <div class="form-group text-right" style={{ marginTop: '25px' }}>
                     <a href="javascript:void(0);" class="btn save_btn" onClick={onDeleteClick}><i class="fa fa-check"></i>&nbsp; Yes</a>
-                    <a href="javascript:void(0);" class="btn cancel_btn" data-dismiss="modal" style={{ marginLeft: '5px' }} onClick={toggleModal}><i class="fa fa-times"></i>&nbsp; No</a>
+                    <a href="javascript:void(0);" class="btn cancel_btn" data-bs-dismiss="modal" style={{ marginLeft: '5px' }} onClick={toggleModal}><i class="fa fa-times"></i>&nbsp; No</a>
                   </div>
                 </div>
               </div>
@@ -742,7 +742,7 @@ const User = (props) => {
           <div className="modal-content" style={{ borderRadius: '0px' }}>
             <div className="modal-header">
               <h4 className="modal-title">User Filter</h4>
-              <button type="button" className="close" data-dismiss="modal" onClick={toggleFilterModal}>×</button>
+              <button type="button" className="close" data-bs-dismiss="modal" onClick={toggleFilterModal}>×</button>
             </div>
             <div className="modal-body">
               <div className="row">
@@ -782,8 +782,8 @@ const User = (props) => {
                     </select>
                   </div>
                   <div class="form-group text-right mt-5">
-                    <button type="button" className="btn search_btn" data-dismiss="modal" onClick={() => onFilterClick()}><i class="fa fa-search"></i>&nbsp; Search</button>
-                    <button type="button" className="btn cancel_btn" data-dismiss="modal" onClick={() => onFilterCancel()}><i class="fa fa-times"></i>&nbsp; Cancel</button>
+                    <button type="button" className="btn search_btn" data-bs-dismiss="modal" onClick={() => onFilterClick()}><i class="fa fa-search"></i>&nbsp; Search</button>
+                    <button type="button" className="btn cancel_btn" data-bs-dismiss="modal" onClick={() => onFilterCancel()}><i class="fa fa-times"></i>&nbsp; Cancel</button>
                   </div>
                 </div>
               </div>
@@ -826,7 +826,7 @@ const User = (props) => {
                     </label>
                   </div> : <div className='p-0 m-0'>  <input name="type" type="radio" defaultValue="type-posts" id="type-posts" /></div>}
 
-                  <div data-toggle="modal" data-target="#delete_pop_modal" onClick={() => toggleFilterModal(userId)}>
+                  <div data-bs-toggle="modal" data-bs-target="#delete_pop_modal" onClick={() => toggleFilterModal(userId)}>
                     <input name="type" type="radio" defaultValue="user_filter" id="user_filter" />
                     <label htmlFor="type-users">
                       <i className="fa fa-filter edit-pen-title" />
@@ -1005,7 +1005,7 @@ const User = (props) => {
                   <div id="accordion">
                     <div className="card">
                       <div className="card-header">
-                        <a href="#demo" data-toggle="collapse" aria-expanded="false">System Details <i className="fas fa-chevron-down" /></a>
+                        <a href="#demo" data-bs-toggle="collapse" aria-expanded="false">System Details <i className="fas fa-chevron-down" /></a>
                       </div>
                       <div id="demo" className="collapse "> {/* show */}
                         <div className="card-body">
@@ -1076,7 +1076,7 @@ const User = (props) => {
                   <div className="col-md-12 text-right">
                     {userId == '' && isWriteAccess ? (<button type="button" className="btn save_btn" onClick={onSaveClick}><i class='fa fa-save'></i>&nbsp; Save</button>) : (null)}
                     {userId != '' && isWriteAccess && isActive == 1 ? (<button type="button" className="btn update_btn" onClick={onUpdateClick}><i class='fa fa-save'></i>&nbsp; Update</button>) : (null)}
-                    {userId != '' && isDeleteAccess && isActive == 1 ? (<button type="button" className="btn delete_btn" data-toggle="modal" data-target="#delete_pop_modal" onClick={() => toggleModal(userId)}><i class="fa fa-trash-o"></i>&nbsp; Delete</button>) : (null)}
+                    {userId != '' && isDeleteAccess && isActive == 1 ? (<button type="button" className="btn delete_btn" data-bs-toggle="modal" data-bs-target="#delete_pop_modal" onClick={() => toggleModal(userId)}><i class="fa fa-trash-o"></i>&nbsp; Delete</button>) : (null)}
                     {/* <button type="button" className="btn" onClick={onBackClick}>Back</button> */}
                   </div>
                 </div>

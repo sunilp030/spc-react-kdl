@@ -17,7 +17,8 @@ import Modify from "./components/screens/data/Modify";
 import DataManagement from "./components/screens/data/DataManagement";
 import Mes from "./components/screens/mes/Mes";
 import Backup from "./components/screens/backup/Backup";
-
+import $ from "jquery";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
  
 
 
