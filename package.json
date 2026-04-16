@@ -10,7 +10,7 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
     "@vickram/react-auto-complete": "^1.0.3",
-    "axios": "^1.13.5",
+    "axios": "^1.15.0",
     "bootstrap": "^5.3.6",
     "buffer": "^6.0.3",
     "chart.js": "^4.5.1",
@@ -75,6 +75,6 @@
     ]
   },
   "devDependencies": {
-    "sonarqube-scanner": "^4.3.4"
+    "sonarqube-scanner": "^4.3.6"
   }
 }
