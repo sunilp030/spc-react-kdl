@@ -90,7 +90,9 @@ $(function(){
           var text = $(this).text().split(' ');
           var now = moment().format('DD');
 
-          $(this).html(text[0]+'<span>'+text[1]+'</span>');
+          $(this).empty()
+            .append(document.createTextNode(text[0]))
+            .append($('<span></span>').text(text[1]));
           if(now === text[1]) { $(this).addClass('now'); }
         });
       }
