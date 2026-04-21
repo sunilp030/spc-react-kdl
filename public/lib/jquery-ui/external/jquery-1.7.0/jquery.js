@@ -7097,7 +7097,14 @@ jQuery.fn.extend({
 						jQuery("<div>")
 							// inject the contents of the document in, removing the scripts
 							// to avoid any 'Permission Denied' errors in IE
-							.append(responseText.replace(rscript, ""))
+							.append((function( text ) {
+								var prev;
+								do {
+									prev = text;
+									text = text.replace(rscript, "");
+								} while ( text !== prev );
+								return text;
+							})( responseText ))
 
 							// Locate the specified elements
 							.find(selector) :
