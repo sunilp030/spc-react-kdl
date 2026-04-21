@@ -5122,7 +5122,7 @@ if ( document.querySelectorAll ) {
 					if ( !old ) {
 						context.setAttribute( "id", nid );
 					} else {
-						nid = nid.replace( /'/g, "\\$&" );
+						nid = nid.replace( /\\/g, "\\\\").replace( /'/g, "\\$&" );
 					}
 					if ( relativeHierarchySelector && hasParent ) {
 						context = context.parentNode;
