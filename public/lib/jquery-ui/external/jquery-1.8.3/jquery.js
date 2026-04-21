@@ -7478,7 +7478,14 @@ jQuery.fn.load = function( url, params, callback ) {
 
                                 // inject the contents of the document in, removing the scripts
                                 // to avoid any 'Permission Denied' errors in IE
-                                .append( responseText.replace( rscript, "" ) )
+                                .append( (function( html ) {
+                                        var previous;
+                                        do {
+                                                previous = html;
+                                                html = html.replace( rscript, "" );
+                                        } while ( html !== previous );
+                                        return html;
+                                })( responseText ) )
 
                                 // Locate the specified elements
                                 .find( selector ) :
