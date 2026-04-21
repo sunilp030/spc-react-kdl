@@ -18,7 +18,6 @@
 	<script src="../bootstrap.js" data-modules="dialog">
 		var tabTitle = $( "#tab_title" ),
 			tabContent = $( "#tab_content" ),
-			tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>",
 			tabCounter = 2;
 
 		var tabs = $( "#tabs" ).tabs();
@@ -52,7 +51,11 @@
 		function addTab() {
 			var label = tabTitle.val() || "Tab " + tabCounter,
 				id = "tabs-" + tabCounter,
-				li = $( tabTemplate.replace( /#\{href\}/g, "#" + id ).replace( /#\{label\}/g, label ) ),
+				li = $( "<li>" ).append(
+					$( "<a>" ).attr( "href", "#" + id ).text( label ),
+					" ",
+					$( "<span>" ).addClass( "ui-icon ui-icon-close" ).attr( "role", "presentation" ).text( "Remove Tab" )
+				),
 				tabContentHtml = tabContent.val() || "Tab " + tabCounter + " content.",
 				panel = $( "<div>" ).attr( "id", id ).append(
 					$( "<p>" ).text( tabContentHtml )

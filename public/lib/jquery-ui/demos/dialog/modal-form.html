@@ -72,11 +72,11 @@
 			valid = valid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
 
 			if ( valid ) {
-				$( "#users tbody" ).append( "<tr>" +
-					"<td>" + name.val() + "</td>" +
-					"<td>" + email.val() + "</td>" +
-					"<td>" + password.val() + "</td>" +
-				"</tr>" );
+				var row = $( "<tr>" )
+					.append( $( "<td>" ).text( name.val() ) )
+					.append( $( "<td>" ).text( email.val() ) )
+					.append( $( "<td>" ).text( password.val() ) );
+				$( "#users tbody" ).append( row );
 				dialog.dialog( "close" );
 			}
 			return valid;
