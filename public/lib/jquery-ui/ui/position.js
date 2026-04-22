@@ -144,7 +144,12 @@ $.fn.position = function( options ) {
 	options = $.extend( {}, options );
 
 	var atOffset, targetWidth, targetHeight, targetOffset, basePosition, dimensions,
-		target = typeof options.of === "string" ? $( $.find( options.of ) ) : $( options.of ),
+		of = options.of,
+		target = typeof of === "string" ?
+			$( $.find( of ) ) :
+			( of && ( of.nodeType || $.isWindow( of ) || of.jquery || of.preventDefault ) ?
+				$( of ) :
+				$( [] ) ),
 		within = $.position.getWithinInfo( options.within ),
 		scrollInfo = $.position.getScrollInfo( within ),
 		collision = ( options.collision || "flip" ).split( " " ),
