@@ -153,7 +153,7 @@
 								jQuery(jQuery.find(removeElements)).addClass('mean-remove');
 									meanMenuExist = true;
 									// add class to body so we don't need to worry about media queries here, all CSS is wrapped in '.mean-container'
-									jQuery(meanContainer).addClass("mean-container");
+									jQuery(jQuery.find(meanContainer)).addClass("mean-container");
 									var $meanBar = jQuery('<div class="mean-bar"></div>');
 									var $meanReveal = jQuery('<a href="#nav" class="meanmenu-reveal">Show Navigation</a>');
 									var revealCss = meanRevealPos;
