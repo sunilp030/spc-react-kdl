@@ -28,7 +28,6 @@
     "momentjs": "^2.0.0",
     "query-string": "^7.1.1",
     "react": "^17.0.1",
-    "react-autocomplete": "^1.8.1",
     "react-chartjs-2": "^4.2.0",
     "react-checkbox-tree": "^1.7.3",
     "react-data-table-component-extensions": "^1.6.0",
