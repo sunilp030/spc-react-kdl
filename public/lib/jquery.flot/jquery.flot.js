@@ -2769,9 +2769,23 @@ Licensed under the MIT license.
 
             function sanitizeCssColor(value, fallback) {
                 var v = (value == null ? "" : ("" + value)).trim();
+                var namedColors = {
+                    aqua: true, azure: true, beige: true, black: true, blue: true, brown: true,
+                    cyan: true, darkblue: true, darkcyan: true, darkgrey: true, darkgreen: true,
+                    darkkhaki: true, darkmagenta: true, darkolivegreen: true, darkorange: true,
+                    darkorchid: true, darkred: true, darksalmon: true, darkviolet: true,
+                    fuchsia: true, gold: true, green: true, indigo: true, khaki: true,
+                    lightblue: true, lightcyan: true, lightgreen: true, lightgrey: true,
+                    lightpink: true, lightyellow: true, lime: true, magenta: true, maroon: true,
+                    navy: true, olive: true, orange: true, pink: true, purple: true, violet: true,
+                    red: true, silver: true, white: true, yellow: true, transparent: true
+                };
                 if (/^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/.test(v) ||
-                    /^rgba?\(\s*(\d{1,3}\s*,\s*){2}\d{1,3}(\s*,\s*(0|1|0?\.\d+))?\s*\)$/.test(v) ||
-                    /^[a-zA-Z]+$/.test(v)) {
+                    /^rgba?\(\s*(\d{1,3}\s*,\s*){2}\d{1,3}(\s*,\s*(0|1|0?\.\d+))?\s*\)$/.test(v)) {
+                    return v;
+                }
+                v = v.toLowerCase();
+                if (namedColors[v]) {
                     return v;
                 }
                 return fallback;
