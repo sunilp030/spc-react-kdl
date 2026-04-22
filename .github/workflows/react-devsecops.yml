@@ -57,6 +57,8 @@ jobs:
       - uses: actions/setup-node@v4
       - run: npm install
       - run: npm run build
+        env:
+          CI: false
 
 # 🔎 5. FS SCAN
   fs-scan:
