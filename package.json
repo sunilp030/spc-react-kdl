@@ -22,6 +22,8 @@
     "file-saver": "^2.0.5",
     "hammerjs": "^2.0.8",
     "jquery": "^3.7.1",
+    "react-imask": "^7.6.1",
+    "react-form-wizard-component": "0.2.7",
     "jquery-ui-bundle": "^1.12.1-migrate",
     "moment": "^2.30.1",
     "momentjs": "^2.0.0",
@@ -48,7 +50,7 @@
     "react-toasts": "^3.0.6",
     "react-treebeard": "^3.2.4",
     "web-vitals": "^0.2.4",
-    "xlsx": "^0.18.5"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -76,5 +78,12 @@
   },
   "devDependencies": {
     "sonarqube-scanner": "^4.3.6"
+  },
+  "overrides": {
+    "serialize-javascript": "^7.0.3",
+    "path-to-regexp": "^1.9.0",
+    "nth-check": "^2.0.1",
+    "svgo": "^2.8.1",
+    "jquery": "^3.7.1"
   }
 }
