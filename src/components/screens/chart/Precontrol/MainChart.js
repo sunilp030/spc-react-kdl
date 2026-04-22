@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import { Chart, registerables } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import zoomPlugin from 'chartjs-plugin-zoom';
-import 'chartjs-adapter-moment';
 Chart.register(...registerables, zoomPlugin, annotationPlugin);
 
 const labels = [
