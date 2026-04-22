@@ -670,6 +670,10 @@ module.exports = function extend() {
 		if (options != null) {
 			// Extend the base object
 			for (name in options) {
+				// Prevent prototype pollution
+				if (name === '__proto__' || name === 'constructor' || name === 'prototype') {
+					continue;
+				}
 				src = target[name];
 				copy = options[name];
 
