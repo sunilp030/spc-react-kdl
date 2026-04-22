@@ -6385,8 +6385,7 @@ jQuery.extend({
 				if ( !rhtml.test( elem ) ) {
 					elem = context.createTextNode( elem );
 				} else {
-					// Fix "XHTML"-style tags in all browsers
-					elem = elem.replace(rxhtmlTag, "<$1></$2>");
+					// Preserve input markup; avoid regex-based self-closing tag expansion
 
 					// Trim whitespace, otherwise indexOf won't work as expected
 					var tag = ( rtagName.exec( elem ) || ["", ""] )[1].toLowerCase(),
