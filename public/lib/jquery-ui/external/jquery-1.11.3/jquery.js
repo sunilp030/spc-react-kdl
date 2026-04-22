@@ -5862,7 +5862,8 @@ jQuery.fn.extend({
 				( support.leadingWhitespace || !rleadingWhitespace.test( value ) ) &&
 				!wrapMap[ (rtagName.exec( value ) || [ "", "" ])[ 1 ].toLowerCase() ] ) {
 
-				value = value.replace( rxhtmlTag, "<$1></$2>" );
+				// Avoid regex-based self-closing tag expansion; it can rewrite attacker-controlled
+				// attribute content into executable HTML in edge cases.
 
 				try {
 					for (; i < l; i++ ) {
