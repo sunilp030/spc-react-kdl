@@ -2826,7 +2826,21 @@ Licensed under the MIT license.
                     pos += 'right:' + (m[0] + plotOffset.right) + 'px;';
                 else if (p.charAt(1) == "w")
                     pos += 'left:' + (m[0] + plotOffset.left) + 'px;';
-                var legend = $('<div class="legend">' + table.replace('style="', 'style="position:absolute;' + pos +';') + '</div>').appendTo(placeholder);
+                var legend = $('<div class="legend"></div>').appendTo(placeholder);
+                var legendTable = $(table);
+                legendTable.css("position", "absolute");
+                var posParts = pos.split(";");
+                for (var pi = 0; pi < posParts.length; ++pi) {
+                    var part = $.trim(posParts[pi]);
+                    if (!part) {
+                        continue;
+                    }
+                    var kv = part.split(":");
+                    if (kv.length === 2) {
+                        legendTable.css($.trim(kv[0]), $.trim(kv[1]));
+                    }
+                }
+                legend.append(legendTable);
                 if (options.legend.backgroundOpacity != 0.0) {
                     // put in the transparent background
                     // separately to avoid blended labels and
