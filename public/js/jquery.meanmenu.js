@@ -133,7 +133,7 @@
 							jQuery(meanMenu).css('display', meanDisplay);
 							menuOn = false;
 							meanMenuExist = false;
-							jQuery(removeElements).removeClass('mean-remove');
+							jQuery(jQuery.find(removeElements)).removeClass('mean-remove');
 						};
 
 						// navigation reveal
