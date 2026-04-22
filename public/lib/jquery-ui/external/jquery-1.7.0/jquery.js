@@ -6334,7 +6334,10 @@ jQuery.extend({
 					elem = context.createTextNode( elem );
 				} else {
 					// Fix "XHTML"-style tags in all browsers
-					elem = elem.replace(rxhtmlTag, "<$1></$2>");
+					// Guard against expanding matches that may come from inside attribute values.
+					elem = elem.replace( rxhtmlTag, function( all, html, tag ) {
+						return /['"]/.test( html ) ? all : "<" + html + "></" + tag + ">";
+					});
 
 					// Trim whitespace, otherwise indexOf won't work as expected
 					var tag = ( rtagName.exec( elem ) || ["", ""] )[1].toLowerCase(),
