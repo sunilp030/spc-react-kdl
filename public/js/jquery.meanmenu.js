@@ -53,7 +53,17 @@
 				var currentWidth = window.innerWidth || document.documentElement.clientWidth;
 
 				return this.each(function () {
-						var meanMenu = options.meanMenuTarget;
+						var meanMenuTarget = options.meanMenuTarget;
+						var meanMenu;
+						if (meanMenuTarget && meanMenuTarget.jquery) {
+								meanMenu = meanMenuTarget;
+						} else if (meanMenuTarget && meanMenuTarget.nodeType) {
+								meanMenu = jQuery(meanMenuTarget);
+						} else if (typeof meanMenuTarget === 'string') {
+								meanMenu = jQuery(jQuery.find(meanMenuTarget));
+						} else {
+								meanMenu = jQuery(this);
+						}
 						var meanContainer = options.meanMenuContainer;
 						var meanMenuClose = options.meanMenuClose;
 						var meanMenuCloseSize = options.meanMenuCloseSize;
