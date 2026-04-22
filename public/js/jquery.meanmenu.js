@@ -129,7 +129,7 @@
 						// re-instate original nav (and call this on window.width functions)
 						var meanOriginal = function() {
 							jQuery('.mean-bar,.mean-push').remove();
-							jQuery(meanContainer).removeClass("mean-container");
+							jQuery(jQuery.find(meanContainer)).removeClass("mean-container");
 							jQuery(meanMenu).css('display', meanDisplay);
 							menuOn = false;
 							meanMenuExist = false;
