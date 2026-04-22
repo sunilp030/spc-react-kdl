@@ -511,6 +511,15 @@ Licensed under the MIT license.
         // where series is either just the data as [ [x1, y1], [x2, y2], ... ]
         // or { data: [ [x1, y1], [x2, y2], ... ], label: "some label", ... }
 
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
         var series = [],
             options = {
                 // the color theme used for graphs
@@ -2771,7 +2780,7 @@ Licensed under the MIT license.
 
                 fragments.push(
                     '<td class="legendColorBox"><div style="border:1px solid ' + options.legend.labelBoxBorderColor + ';padding:1px"><div style="width:4px;height:0;border:5px solid ' + entry.color + ';overflow:hidden"></div></div></td>' +
-                    '<td class="legendLabel">' + entry.label + '</td>'
+                    '<td class="legendLabel">' + escapeHtml(entry.label) + '</td>'
                 );
             }
 
