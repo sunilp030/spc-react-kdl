@@ -2820,7 +2820,21 @@ Licensed under the MIT license.
                         c = c.toString();
                     }
                     var div = legend.children();
-                    $('<div style="position:absolute;width:' + div.width() + 'px;height:' + div.height() + 'px;' + pos +'background-color:' + c + ';"> </div>').prependTo(legend).css('opacity', options.legend.backgroundOpacity);
+                    var background = $('<div> </div>').css({
+                        position: "absolute",
+                        width: div.width(),
+                        height: div.height(),
+                        backgroundColor: c
+                    });
+                    if (p.charAt(0) == "n")
+                        background.css("top", m[1] + plotOffset.top);
+                    else if (p.charAt(0) == "s")
+                        background.css("bottom", m[1] + plotOffset.bottom);
+                    if (p.charAt(1) == "e")
+                        background.css("right", m[0] + plotOffset.right);
+                    else if (p.charAt(1) == "w")
+                        background.css("left", m[0] + plotOffset.left);
+                    background.prependTo(legend).css('opacity', options.legend.backgroundOpacity);
                 }
             }
         }
