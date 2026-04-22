@@ -302,7 +302,26 @@
             }
             else {
 
-                var appendTo = opts.appendTo === "parent" ? boundElement.parent() : $(opts.appendTo);
+                var appendTarget = opts.appendTo;
+                var appendTo;
+
+                if (appendTarget === "parent") {
+                    appendTo = boundElement.parent();
+                }
+                else if (typeof appendTarget === "string") {
+                    var trimmedAppendTarget = $.trim(appendTarget);
+                    // Treat string input strictly as a selector; never as HTML.
+                    if (trimmedAppendTarget.charAt(0) === "<") {
+                        appendTo = $();
+                    }
+                    else {
+                        appendTo = $($.find(trimmedAppendTarget, doc));
+                    }
+                }
+                else {
+                    appendTo = $(appendTarget);
+                }
+
                 if (appendTo.length !== 1) {
                     appendTo = $("body");
                 }
