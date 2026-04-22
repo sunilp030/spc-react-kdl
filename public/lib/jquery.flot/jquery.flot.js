@@ -2786,10 +2786,16 @@ Licensed under the MIT license.
                 $(options.legend.container).html(table);
             else {
                 var pos = "",
-                    p = options.legend.position,
+                    p = (typeof options.legend.position === "string" ? options.legend.position.toLowerCase() : "ne"),
                     m = options.legend.margin;
-                if (m[0] == null)
+                if (p !== "ne" && p !== "nw" && p !== "se" && p !== "sw")
+                    p = "ne";
+                if (!$.isArray(m))
                     m = [m, m];
+                m = [
+                    isFinite(+m[0]) ? +m[0] : 0,
+                    isFinite(+m[1]) ? +m[1] : 0
+                ];
                 if (p.charAt(0) == "n")
                     pos += 'top:' + (m[1] + plotOffset.top) + 'px;';
                 else if (p.charAt(0) == "s")
