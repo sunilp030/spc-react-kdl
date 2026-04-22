@@ -6173,7 +6173,8 @@ jQuery.fn.extend({
 				( jQuery.support.leadingWhitespace || !rleadingWhitespace.test( value ) ) &&
 				!wrapMap[ ( rtagName.exec( value ) || ["", ""] )[1].toLowerCase() ] ) {
 
-				value = value.replace( rxhtmlTag, "<$1></$2>" );
+				// Avoid regex-based expansion of self-closing tags; it can match inside attribute values.
+				// Keep value unchanged before assigning to innerHTML.
 
 				try {
 					for (; i < l; i++ ) {
