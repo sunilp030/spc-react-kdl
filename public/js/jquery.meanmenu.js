@@ -140,7 +140,7 @@
 						var showMeanMenu = function() {
 								var meanStyles = "background:"+meanRevealColour+";color:"+meanRevealColour+";"+meanRevealPos;
 								if (currentWidth <= meanScreenWidth) {
-								jQuery(removeElements).addClass('mean-remove');
+								jQuery(jQuery.find(removeElements)).addClass('mean-remove');
 									meanMenuExist = true;
 									// add class to body so we don't need to worry about media queries here, all CSS is wrapped in '.mean-container'
 									jQuery(meanContainer).addClass("mean-container");
@@ -222,7 +222,7 @@
 										}
 											$navreveal.toggleClass("meanclose");
 											meanInner();
-											jQuery(removeElements).addClass('mean-remove');
+											jQuery(jQuery.find(removeElements)).addClass('mean-remove');
 									});
 
 									// for one page websites, reset all variables...
