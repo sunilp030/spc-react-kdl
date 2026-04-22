@@ -2767,9 +2767,21 @@ Licensed under the MIT license.
 
             // Generate markup for the list of entries, in their final order
 
+            function sanitizeCssColor(value, fallback) {
+                var v = (value == null ? "" : ("" + value)).trim();
+                if (/^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/.test(v) ||
+                    /^rgba?\(\s*(\d{1,3}\s*,\s*){2}\d{1,3}(\s*,\s*(0|1|0?\.\d+))?\s*\)$/.test(v) ||
+                    /^[a-zA-Z]+$/.test(v)) {
+                    return v;
+                }
+                return fallback;
+            }
+
             for (var i = 0; i < entries.length; ++i) {
 
                 var entry = entries[i];
+                var legendBorderColor = sanitizeCssColor(options.legend.labelBoxBorderColor, "#545454");
+                var entryColor = sanitizeCssColor(entry.color, "#545454");
 
                 if (i % options.legend.noColumns == 0) {
                     if (rowStarted)
@@ -2779,7 +2791,7 @@ Licensed under the MIT license.
                 }
 
                 fragments.push(
-                    '<td class="legendColorBox"><div style="border:1px solid ' + options.legend.labelBoxBorderColor + ';padding:1px"><div style="width:4px;height:0;border:5px solid ' + entry.color + ';overflow:hidden"></div></div></td>' +
+                    '<td class="legendColorBox"><div style="border:1px solid ' + legendBorderColor + ';padding:1px"><div style="width:4px;height:0;border:5px solid ' + entryColor + ';overflow:hidden"></div></div></td>' +
                     '<td class="legendLabel">' + escapeHtml(entry.label) + '</td>'
                 );
             }
@@ -2790,7 +2802,8 @@ Licensed under the MIT license.
             if (fragments.length == 0)
                 return;
 
-            var table = '<table style="font-size:smaller;color:' + options.grid.color + '">' + fragments.join("") + '</table>';
+            var legendTextColor = sanitizeCssColor(options.grid.color, "#545454");
+            var table = '<table style="font-size:smaller;color:' + legendTextColor + '">' + fragments.join("") + '</table>';
             if (options.legend.container != null)
                 $(options.legend.container).html(table);
             else {
