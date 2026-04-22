@@ -138,13 +138,32 @@
 
 						// navigation reveal
 						var showMeanMenu = function() {
-								var meanStyles = "background:"+meanRevealColour+";color:"+meanRevealColour+";"+meanRevealPos;
+								var sanitizeCssColor = function (value) {
+									if (typeof value !== "string") {
+										return "";
+									}
+									var trimmed = jQuery.trim(value);
+									if (/^(#[0-9a-fA-F]{3,8}|rgba?\(\s*[\d.\s,%]+\s*\)|hsla?\(\s*[\d.\s,%]+\s*\)|[a-zA-Z]+)$/.test(trimmed)) {
+										return trimmed;
+									}
+									return "";
+								};
+								var safeRevealColour = sanitizeCssColor(meanRevealColour);
 								if (currentWidth <= meanScreenWidth) {
 								jQuery(jQuery.find(removeElements)).addClass('mean-remove');
 									meanMenuExist = true;
 									// add class to body so we don't need to worry about media queries here, all CSS is wrapped in '.mean-container'
 									jQuery(meanContainer).addClass("mean-container");
-									jQuery('.mean-container').prepend('<div class="mean-bar"><a href="#nav" class="meanmenu-reveal" style="'+meanStyles+'">Show Navigation</a><nav class="mean-nav"></nav></div>');
+									var $meanBar = jQuery('<div class="mean-bar"></div>');
+									var $meanReveal = jQuery('<a href="#nav" class="meanmenu-reveal">Show Navigation</a>');
+									var revealCss = meanRevealPos;
+									if (safeRevealColour !== "") {
+										revealCss.background = safeRevealColour;
+										revealCss.color = safeRevealColour;
+									}
+									$meanReveal.css(revealCss);
+									$meanBar.append($meanReveal).append('<nav class="mean-nav"></nav>');
+									jQuery('.mean-container').prepend($meanBar);
 
 									//push meanMenu navigation into .mean-nav
 									var meanMenuContents = jQuery(meanMenu).html();
