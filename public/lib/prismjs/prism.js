@@ -418,23 +418,34 @@ var _ = _self.Prism = {
 
 	tokenize: function(text, grammar, language) {
 		var strarr = [text];
+		var effectiveGrammar = Object.create(null);
+		var token;
+
+		for (token in grammar) {
+			if (!Object.prototype.hasOwnProperty.call(grammar, token)) {
+				continue;
+			}
+			if (token === '__proto__' || token === 'constructor' || token === 'prototype' || token === 'rest') {
+				continue;
+			}
+			effectiveGrammar[token] = grammar[token];
+		}
 
 		var rest = grammar.rest;
 
 		if (rest) {
-			for (var token in rest) {
+			for (token in rest) {
+				if (!Object.prototype.hasOwnProperty.call(rest, token)) {
+					continue;
+				}
 				if (token === '__proto__' || token === 'constructor' || token === 'prototype') {
 					continue;
 				}
-				grammar[token] = rest[token];
-			}
-
-			if (Object.prototype.hasOwnProperty.call(grammar, 'rest')) {
-				delete grammar.rest;
+				effectiveGrammar[token] = rest[token];
 			}
 		}
 
-		_.matchGrammar(text, strarr, grammar, 0, 0, false);
+		_.matchGrammar(text, strarr, effectiveGrammar, 0, 0, false);
 
 		return strarr;
 	},
