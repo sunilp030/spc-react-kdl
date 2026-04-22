@@ -184,7 +184,10 @@
 											if(meanExpandableChildren){
 												jQuery('.mean-nav ul ul').each(function() {
 														if(jQuery(this).children().length){
-																jQuery(this,'li:first').parent().append('<a class="mean-expand" href="#" style="font-size: '+ meanMenuCloseSize +'">'+ meanExpand +'</a>');
+																var $expandLink = jQuery('<a/>', { "class": "mean-expand", href: "#" })
+																	.css('font-size', meanMenuCloseSize)
+																	.text(meanExpand);
+																jQuery(this,'li:first').parent().append($expandLink);
 														}
 												});
 												jQuery('.mean-expand').on("click",function(e){
