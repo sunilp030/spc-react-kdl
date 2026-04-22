@@ -2721,7 +2721,12 @@ Licensed under the MIT license.
         function insertLegend() {
 
             if (options.legend.container != null) {
-                $(options.legend.container).html("");
+                var legendContainer = options.legend.container;
+                var legendContainerElement = typeof legendContainer === "string" ?
+                    $($.find(legendContainer)) :
+                    $(legendContainer);
+
+                legendContainerElement.html("");
             } else {
                 placeholder.find(".legend").remove();
             }
