@@ -2822,9 +2822,12 @@ Licensed under the MIT license.
                 return;
 
             var legendTextColor = sanitizeCssColor(options.grid.color, "#545454");
-            var table = '<table style="font-size:smaller;color:' + legendTextColor + '">' + fragments.join("") + '</table>';
+            var table = $('<table></table>').css({
+                fontSize: "smaller",
+                color: legendTextColor
+            }).append(fragments.join(""));
             if (options.legend.container != null)
-                $(options.legend.container).html(table);
+                $(options.legend.container).empty().append(table);
             else {
                 var pos = "",
                     p = (typeof options.legend.position === "string" ? options.legend.position.toLowerCase() : "ne"),
