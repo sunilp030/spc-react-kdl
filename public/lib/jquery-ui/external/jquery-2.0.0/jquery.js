@@ -5480,7 +5480,7 @@ jQuery.fn.extend({
 			if ( typeof value === "string" && !rnoInnerhtml.test( value ) &&
 				!wrapMap[ ( rtagName.exec( value ) || [ "", "" ] )[ 1 ].toLowerCase() ] ) {
 
-				value = value.replace( rxhtmlTag, "<$1></$2>" );
+				// Avoid regex-based self-closing tag expansion since it can match inside attributes.
 
 				try {
 					for ( ; i < l; i++ ) {
