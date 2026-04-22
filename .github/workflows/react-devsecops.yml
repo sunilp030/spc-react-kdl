@@ -1,0 +1,91 @@
+name: React DevSecOps Pipeline
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+  schedule:
+    - cron: '0 3 * * 1'
+  workflow_dispatch:   # ✅ allows manual ZAP run
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+
+# 🔐 1. SECRET SCAN
+  secrets-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: trufflesecurity/trufflehog@main
+
+# 🔍 2. SAST
+  codeql:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+      - uses: github/codeql-action/analyze@v3
+
+# 📦 3. DEPENDENCY SCAN
+  dependency-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: npm install
+      - run: npm audit --audit-level=high
+
+# 🛠️ 4. BUILD
+  build:
+    runs-on: ubuntu-latest
+    needs: [codeql, dependency-scan]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: npm install
+      - run: npm run build
+
+# 🔎 5. FS SCAN
+  fs-scan:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          severity: CRITICAL,HIGH
+          exit-code: 1
+
+# 📦 6. ARTIFACT
+  upload-artifact:
+    runs-on: ubuntu-latest
+    needs: fs-scan
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: react-build
+          path: build/
+
+# 🌐 7. ZAP SCAN (MANUAL)
+  zap-scan:
+    if: github.event_name == 'workflow_dispatch'   # ✅ only manual
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run OWASP ZAP Scan
+        uses: zaproxy/action-full-scan@v0.5.0
+        with:
+          target: 'https://spc.benchmarksolution.com/'
