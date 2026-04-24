@@ -83,13 +83,28 @@ jobs:
           name: react-build
           path: build/
 
-# 🌐 7. ZAP SCAN (MANUAL)
+# 🌐 7. ZAP SCAN 
   zap-scan:
-    if: github.event_name == 'workflow_dispatch'   # ✅ only manual
     runs-on: ubuntu-latest
-
+    permissions:
+      issues: write
+      contents: read
+    needs: upload-artifact   # or your deploy step
     steps:
       - name: Run OWASP ZAP Scan
-        uses: zaproxy/action-full-scan@v0.5.0
+        uses: zaproxy/action-full-scan@v0.10.0
         with:
-          target: 'https://spc.benchmarksolution.com/'
+          target: 'https://spc.benchmarksolution.com/api/'
+          fail_action: false
+          allow_issue_writing: false   # ✅ disable GitHub issue creation
+          artifact_name: ""   # ✅ disable artifact upload (IMPORTANT)
+          
+      # ✅ Upload reports manually (stable way)    
+      - name: Upload ZAP Report
+        uses: actions/upload-artifact@v4
+        with:
+         name: zap_report_${{ github.run_id }}
+         path: |
+          report_html.html
+          report_md.md
+          report_json.json 
