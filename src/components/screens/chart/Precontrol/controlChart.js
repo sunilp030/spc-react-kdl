@@ -23,7 +23,6 @@ import zoomPlugin from 'chartjs-plugin-zoom';
 import Hammer from "hammerjs";
 import Modal from "react-modal";
 import moment from 'moment';
-import { toHaveDisplayValue } from '@testing-library/jest-dom/dist/matchers';
 import { useMemo } from 'react';
 
 Modal.setAppElement("#root");
