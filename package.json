@@ -35,7 +35,6 @@
     "react-icons": "^4.4.0",
     "react-image-file-resizer": "^0.4.8",
     "react-imask": "^7.6.1",
-    "react-js-pagination": "^3.0.2",
     "react-modal": "^3.15.1",
     "react-moment": "^1.1.1",
     "react-paginate": "^8.1.5",
@@ -46,6 +45,7 @@
     "react-toastify": "^9.0.8",
     "react-toasts": "^3.0.6",
     "react-treebeard": "^3.2.4",
+    "uuid": "^14.0.0",
     "web-vitals": "^0.2.4",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz"
   },
@@ -74,10 +74,10 @@
     ]
   },
   "devDependencies": {
-    "sonarqube-scanner": "^4.3.6",
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/react": "^11.2.2",
-    "@testing-library/user-event": "^12.6.0"
+    "@testing-library/user-event": "^12.6.0",
+    "sonarqube-scanner": "^4.3.6"
   },
   "overrides": {
     "serialize-javascript": "^7.0.3",
